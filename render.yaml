@@ -3,8 +3,8 @@ services:
   - type: web
     name: sdc-coreservices
     runtime: docker
-    dockerfilePath: backend/coreservices/Dockerfile
-    dockerContext: backend/coreservices
+    dockerfilePath: backend-spring/Dockerfile
+    dockerContext: backend-spring
     plan: free
     envVars:
       - key: PORT

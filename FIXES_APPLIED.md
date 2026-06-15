@@ -24,7 +24,7 @@
 
 ### 1. Start Spring Boot backend
 ```powershell
-Set-Location "D:\dsdbm\SDC_Project(news_aggregation)\backend\coreservices"
+Set-Location "D:\dsdbm\SDC_Project(news_aggregation)\backend-spring"
 .\mvnw.cmd spring-boot:run
 ```
 Spring Boot runs on:
