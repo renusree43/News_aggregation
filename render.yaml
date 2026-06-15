@@ -1,0 +1,48 @@
+services:
+  # 1. Spring Boot Backend
+  - type: web
+    name: sdc-coreservices
+    runtime: docker
+    dockerfilePath: backend/coreservices/Dockerfile
+    dockerContext: backend/coreservices
+    plan: free
+    envVars:
+      - key: PORT
+        value: 8001
+      # Local SQLite database or H2 setup. This works out of the box.
+      - key: SPRING_DATASOURCE_URL
+        value: jdbc:h2:file:./data/news_db;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+      - key: SPRING_DATASOURCE_USERNAME
+        value: sa
+      - key: SPRING_DATASOURCE_PASSWORD
+        value: ""
+
+  # 2. FastAPI Gateway
+  - type: web
+    name: sdc-gateway
+    runtime: python
+    rootDir: gateway
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    plan: free
+    envVars:
+      - key: SPRING_BACKEND_URL
+        fromService:
+          type: web
+          name: sdc-coreservices
+          property: host
+      - key: FRONTEND_ORIGIN
+        value: "*"
+      - key: DATABASE_URL
+        value: sqlite:///./sdc_gateway.db
+
+  # 3. React Frontend Static Site
+  - type: web
+    name: sdc-frontend
+    runtime: static
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_API_BASE
+        value: https://sdc-gateway.onrender.com

@@ -1,0 +1,22 @@
+# Node dependencies and builds
+**/node_modules/
+**/dist/
+
+# Python environment and caches
+**/venv/
+**/.venv/
+**/__pycache__/
+**/*.pyc
+**/.env
+
+# Maven build outputs
+**/target/
+**/*.class
+**/.classpath
+**/.project
+**/.settings/
+
+# Local databases and logs
+**/*.db
+**/*.log
+**/data/news_db*
