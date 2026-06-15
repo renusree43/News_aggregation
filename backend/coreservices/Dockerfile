@@ -16,9 +16,12 @@ WORKDIR /app
 # Copy the built jar from the build stage
 COPY --from=build /app/target/coreservices-0.0.1-SNAPSHOT.jar app.jar
 
-# Define port 8001 (Render will override this, but we configure it as a default)
+# Ensure H2 database directory exists
+RUN mkdir -p /app/data
+
+# Define port 8001 (Render will override this via the PORT environment variable)
 ENV PORT=8001
 EXPOSE 8001
 
-# Run the jar with the dynamically injected port
-ENTRYPOINT ["java", "-jar", "app.jar", "--server.port=${PORT}"]
+# Run the jar with JVM memory constraints suited for Render's 512MB RAM free tier
+ENTRYPOINT ["java", "-XX:MaxRAMPercentage=75.0", "-jar", "app.jar"]
