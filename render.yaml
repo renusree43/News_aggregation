@@ -9,13 +9,8 @@ services:
     envVars:
       - key: PORT
         value: 8001
-      # Local SQLite database or H2 setup. This works out of the box.
-      - key: SPRING_DATASOURCE_URL
-        value: jdbc:h2:file:./data/news_db;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-      - key: SPRING_DATASOURCE_USERNAME
-        value: sa
-      - key: SPRING_DATASOURCE_PASSWORD
-        value: ""
+      - key: MONGODB_URI
+        sync: false
 
   # 2. FastAPI Gateway
   - type: web

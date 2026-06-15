@@ -53,7 +53,7 @@ public class UserService implements UserDetailsService {
         return userRepository.findAllByRole("ROLE_MANAGER");
     }
 
-    public User getById(Long id) {
+    public User getById(String id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("User not found with id " + id));
     }
@@ -67,7 +67,7 @@ public class UserService implements UserDetailsService {
         });
     }
 
-    public User updateUser(Long id, UpdateUserRequest request) {
+    public User updateUser(String id, UpdateUserRequest request) {
         User user = getById(id);
         if (request.getEmail() != null) {
             user.setEmail(request.getEmail());
@@ -81,7 +81,7 @@ public class UserService implements UserDetailsService {
         return userRepository.save(user);
     }
 
-    public void deleteUser(Long id) {
+    public void deleteUser(String id) {
         userRepository.deleteById(id);
     }
 }

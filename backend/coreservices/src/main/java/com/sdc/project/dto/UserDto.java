@@ -1,7 +1,7 @@
 package com.sdc.project.dto;
 
 public class UserDto {
-    private Long id;
+    private String id;
     private String username;
     private String email;
     private String role;
@@ -9,18 +9,18 @@ public class UserDto {
     public UserDto() {
     }
 
-    public UserDto(Long id, String username, String email, String role) {
+    public UserDto(String id, String username, String email, String role) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.role = role;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
